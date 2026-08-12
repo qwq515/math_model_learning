@@ -43,4 +43,4 @@ df_clean['年月'] = df_clean['销售日期'].dt.to_period('M')       #dt是date
 monthly_trend = df_clean.groupby(['单品编码','年月'])['销量(千克)'].mean().reset_index()
 print("按单品编码+年月分组后的均值数据为：")
 print(monthly_trend)
-monthly_trend.to_csv('按月份分组后各个=单品销量',index=False,encoding='utf-8-sig')
+monthly_trend.to_csv('按月份分组后各个单品销量.csv',index=False,encoding='utf-8-sig')
