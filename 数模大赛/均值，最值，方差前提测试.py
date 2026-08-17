@@ -2,13 +2,13 @@ import pandas as pd         #pandas是Python中用于数据分析的库，提供
 import os                   #os模块提供了与操作系统进行交互的功能，如文件和目录操作
 os.chdir(os.path.dirname(os.path.abspath(__file__)))        #os.chdir()方法将当前工作目录更改为当前脚本所在的目录，避免路径问题
 #读取文件
-df = pd.read_csv('附件2.csv')
+df = pd.read_csv('合并后的销售数据.csv')
 #看看“是否打折”这一行都有哪些可能
-print("打印行的唯一值",df['是否打折销售'].unique())
+print("打印行的唯一值",df['是否打折销售'].unique())     #.unique()方法返回“是否打折销售”这一中所有不同的值
 #只保留销量大于0的正常值
 df = df[df['销量(千克)']>0]
-#剔除打折样本
-df_clean = df[df['是否打折销售']!="是"]
+#剔除打折样本(后来考虑了一下，不能舍弃打折样本)
+#df_clean = df[df['是否打折销售']!="是"]
 #按“单品编码”分组，计算每个单品的平均销量、最大销量、最小销量和方差
 result = df_clean.groupby('单品编码').agg(      #.groupby()方法按“单品编码”分组，.agg()方法对每个分组进行聚合计算
     样本数量=('销量(千克)', 'count'),
@@ -19,6 +19,8 @@ result = df_clean.groupby('单品编码').agg(      #.groupby()方法按“单�
 ).reset_index()                 #.reset_index()方法将分组后的索引重置为默认整数索引,删了影响不大
 #打印结果
 print(result)
+
+result_full = df_clean.groupby('')
 
 result_sorted = result.sort_values(by='方差',ascending=False)        #按方差降序排序,ascending=False表示降序排列
 #打印排序过后前10条数据
