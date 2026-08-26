@@ -12,4 +12,4 @@ print(returns.index.tolist())
 print("\n退货记录的详细信息：")
 print(returns.to_string())
 
-#无所谓，退货的销售值是负的，被当成异常数据清洗了
+#无所谓，退货的销售值是负的，被当成异常数据清洗了不用管
